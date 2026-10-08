@@ -90,22 +90,22 @@ The interactive Power BI report provides an executive-level cockpit across 4 ded
 ### Page 1: Executive Fleet & North Star Overview
 High-level KPI tracking of Total Revenue (€M), Delivery Volume, Gross Margin %, EV Sales Mix %, and regional market contribution.
 
-![Executive Fleet Overview](assets/dashboard_previews/page1_executive_overview.png)
+![Executive Fleet Overview](bi/Overview.png)
 
 ### Page 2: Commercial Performance & D2C Analytics
 Discount leakage analysis, channel profitability (D2C Studio vs. Subscription vs. Franchised Retailer), and model-level margins.
 
-![Commercial Performance & D2C Analytics](assets/dashboard_previews/page2_commercial_d2c.png)
+![Commercial Performance & D2C Analytics](bi/Performance.png)
 
 ### Page 3: Connected EV Telematics & Battery Health Lab
 Fast-charging speed curves across State of Charge (SoC %), charger protocol split, and ambient temperature throughput distribution (-30°C to +40°C).
 
-![Connected EV Telematics](assets/dashboard_previews/page3_ev_telematics.png)
+![Connected EV Telematics](bi/Health.png)
 
 ### Page 4: Quality, Warranty & Field Reliability
 Early-life defect detection (CPTV at 6 Months in Service), Cost Per Unit (CPU €), Pareto defect prioritization, and component risk matrix.
 
-![Quality and Warranty Analytics](assets/dashboard_previews/page4_quality_warranty.png)
+![Quality and Warranty Analytics](bi/Quality.png)
 
 ---
 
