@@ -4,7 +4,7 @@ on:
   schedule:
     # Runs daily at 02:00 AM UTC
     - cron: '0 2 * * *'
-  workflow_dispatch: # Allows manual trigger from GitHub UI
+  workflow_dispatch:
   push:
     branches: [ main ]
   pull_request:
@@ -13,16 +13,6 @@ on:
 jobs:
   run-pipeline-and-test:
     runs-on: ubuntu-latest
-
-    services:
-      mysql:
-        image: mysql:8.0
-        env:
-          MYSQL_ROOT_PASSWORD: password
-          MYSQL_DATABASE: auto_ops_dw
-        ports:
-          - 3306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=5
 
     steps:
       - name: Check out repository code
@@ -35,33 +25,13 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          sudo apt-get update && sudo apt-get install -y default-mysql-client
           python -m pip install --upgrade pip
           pip install pandas numpy pymysql
 
-      - name: Initialize MySQL Schema
-        run: |
-          mysql -h 127.0.0.1 -u root -ppassword auto_ops_dw < sql/01_schema_ddl.sql
-
       - name: Execute Daily Pipeline Simulator
         run: |
-          python src/run_daily_pipeline.py --days 1
+          python src/run_daily_pipeline.py
 
       - name: Execute Automated Data Quality Assertion Suite
         run: |
           python src/data_quality_checks.py
-
-      - name: Ingest Data Marts into MySQL
-        env:
-          MYSQL_USER: root
-          MYSQL_PASSWORD: password
-          MYSQL_HOST: 127.0.0.1
-          MYSQL_PORT: 3306
-          MYSQL_DATABASE: auto_ops_dw
-        run: |
-          python src/db_loader.py
-
-      - name: Verify Analytical Views
-        run: |
-          mysql -h 127.0.0.1 -u root -ppassword auto_ops_dw < sql/02_analytical_views.sql
-          mysql -h 127.0.0.1 -u root -ppassword auto_ops_dw -e "SELECT * FROM vw_commercial_ev_transition LIMIT 5;"

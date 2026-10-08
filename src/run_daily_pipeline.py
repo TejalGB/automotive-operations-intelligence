@@ -17,9 +17,13 @@ import pandas as pd
 if hasattr(sys.stdout, 'reconfigure'):
     sys.stdout.reconfigure(encoding='utf-8')
 
-# Find the 'data/marts' folder
+# Find paths
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SRC_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(BASE_DIR, "data", "marts")
+
+if SRC_DIR not in sys.path:
+    sys.path.insert(0, SRC_DIR)
 
 from data_quality_checks import run_all_checks
 
