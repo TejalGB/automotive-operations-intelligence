@@ -1,5 +1,7 @@
 # 🚗 AutoOps 360: Global Connected Automotive & Commercial Intelligence Platform
 
+> **Live Interactive Web Demo:** [https://tejalgb.github.io/automotive-operations-intelligence/](https://tejalgb.github.io/automotive-operations-intelligence/)
+
 An enterprise-grade automotive data analytics and operations platform connecting **global commercial sales**, **real-world connected EV battery telematics**, and **aftersales warranty engineering** using **Python, MySQL 8.0, and Microsoft Power BI**, with automated **GitHub Actions CI/CD** and **ServiceNow ITSM governance**.
 
 ---

@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AutoOps 360 | Executive Operations & Commercial Intelligence Platform</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: #0B1120;
+      color: #F8FAFC;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      padding: 0;
+      margin: 0;
+    }
+    .header {
+      background-color: #0F172A;
+      border-bottom: 1px solid #334155;
+      padding: 14px 24px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo-badge {
+      width: 36px;
+      height: 36px;
+      background-color: #06B6D4;
+      color: #0B1120;
+      font-size: 18px;
+      font-weight: bold;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .title-h1 {
+      font-size: 17px;
+      font-weight: bold;
+      color: #FFFFFF;
+    }
+    .title-sub {
+      font-size: 11px;
+      color: #94A3B8;
+    }
+    .nav-tabs {
+      display: flex;
+      gap: 6px;
+      background-color: #162032;
+      padding: 5px;
+      border-radius: 10px;
+      border: 1px solid #334155;
+    }
+    .nav-btn {
+      background: none;
+      border: none;
+      color: #94A3B8;
+      padding: 8px 14px;
+      font-size: 12px;
+      font-weight: 500;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .nav-btn:hover {
+      color: #FFFFFF;
+    }
+    .nav-btn.active {
+      background-color: #06B6D4;
+      color: #0B1120;
+      font-weight: bold;
+    }
+    .main-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .tab-view {
+      display: none;
+    }
+    .tab-view.active {
+      display: block;
+    }
+    .page-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .page-title {
+      font-size: 19px;
+      font-weight: bold;
+      color: #FFFFFF;
+      margin-bottom: 3px;
+    }
+    .page-sub {
+      font-size: 12px;
+      color: #94A3B8;
+    }
+    .filter-box {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background-color: #1E293B;
+      border: 1px solid #334155;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      color: #94A3B8;
+    }
+    select {
+      background-color: #0F172A;
+      color: #38BDF8;
+      border: 1px solid #334155;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      outline: none;
+      cursor: pointer;
+    }
+    select:focus {
+      border-color: #06B6D4;
+    }
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .card {
+      background-color: #1E293B;
+      border: 1px solid #334155;
+      border-radius: 10px;
+      padding: 18px;
+    }
+    .kpi-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #94A3B8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .kpi-value {
+      font-size: 26px;
+      font-weight: bold;
+      color: #FFFFFF;
+      margin-top: 6px;
+    }
+    .kpi-sub {
+      font-size: 11px;
+      color: #10B981;
+      margin-top: 4px;
+    }
+    .charts-grid-2 {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .charts-grid-half {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    @media (max-width: 1024px) {
+      .charts-grid-2, .charts-grid-half {
+        grid-template-columns: 1fr;
+      }
+    }
+    .chart-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #FFFFFF;
+      margin-bottom: 12px;
+    }
+    .chart-box {
+      position: relative;
+      height: 250px;
+      width: 100%;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      text-align: left;
+    }
+    th {
+      background-color: #0F172A;
+      color: #38BDF8;
+      font-weight: 600;
+      padding: 10px 12px;
+      border-bottom: 1px solid #334155;
+      text-transform: uppercase;
+    }
+    td {
+      padding: 10px 12px;
+      border-bottom: 1px solid #233044;
+      color: #CBD5E1;
+    }
+    tr:hover td {
+      background-color: #233044;
+    }
+    tfoot td {
+      background-color: #0F172A;
+      font-weight: bold;
+      color: #FFFFFF;
+      border-top: 2px solid #334155;
+    }
+    .text-center { text-align: center; }
+    .text-right { text-align: right; }
+  </style>
+</head>
+<body>
+
+  <!-- Top Header -->
+  <header class="header">
+    <div class="logo-container">
+      <div class="logo-badge">⚡</div>
+      <div>
+        <div class="title-h1">AutoOps 360</div>
+        <div class="title-sub">Global Connected Automotive & Commercial Intelligence</div>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="nav-tabs">
+      <button onclick="switchTab(1)" id="btn-1" class="nav-btn active">1. Executive Overview</button>
+      <button onclick="switchTab(2)" id="btn-2" class="nav-btn">2. Commercial & D2C</button>
+      <button onclick="switchTab(3)" id="btn-3" class="nav-btn">3. Connected EV Telematics</button>
+      <button onclick="switchTab(4)" id="btn-4" class="nav-btn">4. Quality & Warranty</button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content">
+
+    <!-- ========================================================================= -->
+    <!-- PAGE 1: Executive Overview -->
+    <!-- ========================================================================= -->
+    <div id="tab-1" class="tab-view active">
+      <div class="page-header-row">
+        <div>
+          <div class="page-title">AutoOps 360 | Executive Fleet & North Star Overview</div>
+          <div class="page-sub">Cross-domain enterprise performance and electrification transition pace</div>
+        </div>
+        <div class="filter-box">
+          <span>Region Filter:</span>
+          <select id="p1-filter" onchange="applyPage1Filter()">
+            <option value="All">All Regions (Global)</option>
+            <option value="Western_Europe">Western Europe</option>
+            <option value="Nordics">Nordics</option>
+            <option value="Americas">Americas</option>
+            <option value="Central_Europe">Central Europe</option>
+            <option value="Southern_Europe">Southern Europe</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="card">
+          <div class="kpi-label">Total Revenue EUR</div>
+          <div id="p1_val_rev" class="kpi-value">$542.83M</div>
+          <div class="kpi-sub">▲ +8.4% YoY vs target</div>
+        </div>
+        <div class="card">
+          <div class="kpi-label">Total Volume Delivered</div>
+          <div id="p1_val_vol" class="kpi-value">10,051</div>
+          <div class="kpi-sub" style="color:#94A3B8;">Units delivered</div>
+        </div>
+        <div class="card">
+          <div class="kpi-label">Weighted Gross Margin %</div>
+          <div id="p1_val_margin" class="kpi-value" style="color:#10B981;">23.28%</div>
+          <div class="kpi-sub">Realized multi-currency</div>
+        </div>
+        <div class="card">
+          <div class="kpi-label">EV Sales Mix %</div>
+          <div id="p1_val_ev" class="kpi-value" style="color:#06B6D4;">79.75%</div>
+          <div class="kpi-sub" style="color:#06B6D4;">Pure EV + PHEV mix</div>
+        </div>
+      </div>
+
+      <div class="charts-grid-2">
+        <div class="card">
+          <div class="chart-title">Monthly Revenue & EV Adoption Mix %</div>
+          <div class="chart-box"><canvas id="c1_revenue"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="chart-title">Fleet Delivery Mix by Powertrain</div>
+          <div class="chart-box"><canvas id="c1_powertrain"></canvas></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="chart-title">Total Revenue ($M) by Sales Region</div>
+        <div class="chart-box" style="height:210px;"><canvas id="c1_region"></canvas></div>
+      </div>
+    </div>
+
+
+    <!-- ========================================================================= -->
+    <!-- PAGE 2: Commercial & D2C -->
+    <!-- ========================================================================= -->
+    <div id="tab-2" class="tab-view">
+      <div class="page-header-row">
+        <div>
+          <div class="page-title">AutoOps 360 | Commercial Performance & D2C Analytics</div>
+          <div class="page-sub">Retail pricing discipline, omnichannel studio economics, and model profitability</div>
+        </div>
+        <div class="filter-box">
+          <span>Channel:</span>
+          <select id="p2-filter" onchange="applyPage2Filter()">
+            <option value="All">All Channels</option>
+            <option value="Care_Subscription_Hub">Care Subscription Hub</option>
+            <option value="Direct_Brand_Studio">Direct Brand Studio</option>
+            <option value="Franchised_Retailer">Franchised Retailer</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="kpi-grid" style="grid-template-columns: repeat(3, 1fr);">
+        <div class="card">
+          <div class="kpi-label">Discount Leakage %</div>
+          <div id="p2_val_disc" class="kpi-value" style="color:#F43F5E;">4.20%</div>
+          <div class="kpi-sub" style="color:#94A3B8;">MSRP concession loss</div>
+        </div>
+        <div class="card">
+          <div class="kpi-label">Total Gross Profit EUR</div>
+          <div id="p2_val_profit" class="kpi-value">$126.39M</div>
+          <div class="kpi-sub">Realized trading margin</div>
+        </div>
+        <div class="card">
+          <div class="kpi-label">Avg Delivery Lead Days</div>
+          <div id="p2_val_lead" class="kpi-value" style="color:#38BDF8;">25.92</div>
+          <div class="kpi-sub" style="color:#94A3B8;">Order-to-handover cycle</div>
+        </div>
+      </div>
+
+      <div class="charts-grid-half">
+        <div class="card">
+          <div class="chart-title">Gross Margin % vs Discount Leakage by Channel</div>
+          <div class="chart-box"><canvas id="c2_channel"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="chart-title">Gross Margin % by Model Family</div>
+          <div class="chart-box"><canvas id="c2_model"></canvas></div>
+        </div>
+      </div>
+
+      <div class="card" style="overflow-x: auto;">
+        <div class="chart-title">Dealer Network & Channel Performance Matrix</div>
+        <table>
+          <thead>
+            <tr>
+              <th>Dealer Name</th>
+              <th>Channel Type</th>
+              <th>Country</th>
+              <th class="text-center">Volume Delivered</th>
+              <th class="text-center">Total Revenue ($M)</th>
+              <th class="text-center">Gross Margin %</th>
+              <th class="text-center">Discount Leakage %</th>
+            </tr>
+          </thead>
+          <tbody id="p2-tbody">
+            <tr data-channel="Direct_Brand_Studio">
+              <td style="font-weight:600; color:#fff;">Berlin Brand Experience</td>
+              <td>Direct_Brand_Studio</td>
+              <td>Germany</td>
+              <td class="text-center">689</td>
+              <td class="text-center">$37.36</td>
+              <td class="text-center" style="color:#10B981; font-weight:600;">24.42%</td>
+              <td class="text-center">2.49%</td>
+            </tr>
+            <tr data-channel="Franchised_Retailer">
+              <td style="font-weight:600; color:#fff;">Munich Premium Autohaus</td>
+              <td>Franchised_Retailer</td>
+              <td>Germany</td>
+              <td class="text-center">736</td>
+              <td class="text-center">$38.39</td>
+              <td class="text-center" style="color:#10B981; font-weight:600;">21.71%</td>
+              <td class="text-center">5.97%</td>
+            </tr>
+            <tr data-channel="Franchised_Retailer">
+              <td style="font-weight:600; color:#fff;">Milan Design District Auto</td>
+              <td>Franchised_Retailer</td>
+              <td>Italy</td>
+              <td class="text-center">720</td>
+              <td class="text-center">$38.22</td>
+              <td class="text-center" style="color:#10B981; font-weight:600;">21.69%</td>
+              <td class="text-center">6.00%</td>
+            </tr>
+            <tr data-channel="Care_Subscription_Hub">
+              <td style="font-weight:600; color:#fff;">Amsterdam Canal Mobility</td>
+              <td>Care_Subscription_Hub</td>
+              <td>Netherlands</td>
+              <td class="text-center">771</td>
+              <td class="text-center">$43.63</td>
+              <td class="text-center" style="color:#10B981; font-weight:600;">26.40%</td>
+              <td class="text-center">0.00%</td>
+            </tr>
+            <tr data-channel="Franchised_Retailer">
+              <td style="font-weight:600; color:#fff;">Rotterdam Port Auto</td>
+              <td>Franchised_Retailer</td>
+              <td>Netherlands</td>
+              <td class="text-center">768</td>
+              <td class="text-center">$40.71</td>
+              <td class="text-center" style="color:#10B981; font-weight:600;">21.69%</td>
+              <td class="text-center">5.94%</td>
+            </tr>
+            <tr data-channel="Franchised_Retailer">
+              <td style="font-weight:600; color:#fff;">Bergen EV Center</td>
+              <td>Franchised_Retailer</td>
+              <td>Norway</td>
+              <td class="text-center">694</td>
+              <td class="text-center">$37.45</td>
+              <td class="text-center" style="color:#10B981; font-weight:600;">21.89%</td>
+              <td class="text-center">5.87%</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="3">Total Fleet Operations</td>
+              <td id="p2_tot_vol" class="text-center">10,051</td>
+              <td id="p2_tot_rev" class="text-center">$542.83</td>
+              <td id="p2_tot_margin" class="text-center" style="color:#10B981;">23.28%</td>
+              <td id="p2_tot_disc" class="text-center" style="color:#F43F5E;">4.20%</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+
+
+    <!-- ========================================================================= -->
+    <!-- PAGE 3: Connected EV Telematics -->
+    <!-- ========================================================================= -->
+    <div id="tab-3" class="tab-view">
+      <div class="page-header-row">
+        <div>
+          <div class="page-title">AutoOps 360 | Connected EV Telematics & Battery Health Lab</div>
+          <div class="page-sub">Real-world fast-charging curves, charger protocols, and thermal degradation kinetics</div>
+        </div>
+        <div class="filter-box">
+          <span>Model Family:</span>
+          <select id="p3-filter" onchange="applyPage3Filter()">
+            <option value="All">All EV Models</option>
+            <option value="EX90">EX90 (Flagship 111 kWh)</option>
+            <option value="EC40">EC40 (Crossover 82 kWh)</option>
+            <option value="EX30">EX30 (Compact 69 kWh)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="kpi-grid" style="grid-template-columns: repeat(3, 1fr);">
+        <div class="card">
+          <div class="kpi-label">Total Energy Delivered MWh</div>
+          <div id="p3_val_energy" class="kpi-value" style="color:#38BDF8;">1.5K</div>
+          <div class="kpi-sub" style="color:#94A3B8;">Across 10,000+ charging sessions</div>
+        </div>
+        <div class="card">
+          <div class="kpi-label">Avg Fast Charging Speed kW</div>
+          <div id="p3_val_speed" class="kpi-value">37.5 kW</div>
+          <div class="kpi-sub">Mean fleet throughput</div>
+        </div>
+        <div class="card">
+          <div class="kpi-label">Average Ambient Temperature</div>
+          <div id="p3_val_temp" class="kpi-value" style="color:#06B6D4;">9.5°C</div>
+          <div class="kpi-sub" style="color:#94A3B8;">Subarctic to temperate test field</div>
+        </div>
+      </div>
+
+      <div class="charts-grid-2">
+        <div class="card">
+          <div class="chart-title">Fast Charging Speed Curve by Battery State of Charge (SoC)</div>
+          <div class="chart-box"><canvas id="c3_curve"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="chart-title">Energy Delivered by Charger Protocol</div>
+          <div class="chart-box"><canvas id="c3_protocol"></canvas></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="chart-title">Charging Energy Throughput by Ambient Temperature (°C)</div>
+        <div class="chart-box" style="height:230px;"><canvas id="c3_temp"></canvas></div>
+      </div>
+    </div>
+
+
+    <!-- ========================================================================= -->
+    <!-- PAGE 4: Quality & Warranty -->
+    <!-- ========================================================================= -->
+    <div id="tab-4" class="tab-view">
+      <div class="page-header-row">
+        <div>
+          <div class="page-title">AutoOps 360 | Quality Engineering & Warranty Early Warning</div>
+          <div class="page-sub">Early defect detection (CPTV @ 6 MIS), Pareto claim expenses, and safety-critical surveillance</div>
+        </div>
+        <div class="filter-box">
+          <span>Model Line:</span>
+          <select id="p4-filter" onchange="applyPage4Filter()">
+            <option value="All">All Vehicle Models</option>
+            <option value="EX30">EX30</option>
+            <option value="EC40">EC40</option>
+            <option value="XC60">XC60</option>
+            <option value="EX90">EX90</option>
+            <option value="XC90">XC90</option>
+            <option value="V60">V60</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="kpi-grid" style="grid-template-columns: repeat(3, 1fr);">
+        <div class="card">
+          <div class="kpi-label">Total Warranty Expense EUR</div>
+          <div id="p4_val_expense" class="kpi-value">€6.0M</div>
+          <div class="kpi-sub" style="color:#94A3B8;">Incurred claim liabilities</div>
+        </div>
+        <div class="card">
+          <div class="kpi-label">Warranty Cost per Unit (CPU)</div>
+          <div id="p4_val_cpu" class="kpi-value" style="color:#38BDF8;">€601.13</div>
+          <div class="kpi-sub" style="color:#94A3B8;">Average per vehicle delivered</div>
+        </div>
+        <div class="card">
+          <div class="kpi-label">Safety Critical Share %</div>
+          <div id="p4_val_safety" class="kpi-value" style="color:#F43F5E;">57.80%</div>
+          <div class="kpi-sub" style="color:#F43F5E;">High-priority defect focus</div>
+        </div>
+      </div>
+
+      <div class="charts-grid-half">
+        <div class="card">
+          <div class="chart-title">Defect Cost Pareto by Component Category</div>
+          <div class="chart-box"><canvas id="c4_pareto"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="chart-title">Monthly Warranty Defect Trend by Component</div>
+          <div class="chart-box"><canvas id="c4_trend"></canvas></div>
+        </div>
+      </div>
+
+      <div class="card" style="overflow-x: auto;">
+        <div class="chart-title">Warranty Defect Matrix by Model Family (€ EUR)</div>
+        <table>
+          <thead>
+            <tr>
+              <th>Model Family</th>
+              <th class="text-center">ADAS Vision Sensor</th>
+              <th class="text-center">Air Suspension</th>
+              <th class="text-center">Electric Drive Inverter</th>
+              <th class="text-center">HV Battery Pack</th>
+              <th class="text-center">Infotainment OTA</th>
+              <th class="text-right">Total (€)</th>
+            </tr>
+          </thead>
+          <tbody id="p4-tbody">
+            <tr data-model="V60">
+              <td style="font-weight:600; color:#fff;">V60</td>
+              <td class="text-center">€39,200</td>
+              <td class="text-center">€30,780</td>
+              <td class="text-center">-</td>
+              <td class="text-center">-</td>
+              <td class="text-center">€11,550</td>
+              <td class="text-right" style="font-weight:600; color:#fff;">€81,530</td>
+            </tr>
+            <tr data-model="XC90">
+              <td style="font-weight:600; color:#fff;">XC90</td>
+              <td class="text-center">€37,800</td>
+              <td class="text-center">€44,460</td>
+              <td class="text-center">€72,230</td>
+              <td class="text-center">€139,320</td>
+              <td class="text-center">€8,250</td>
+              <td class="text-right" style="font-weight:600; color:#fff;">€302,060</td>
+            </tr>
+            <tr data-model="EX90">
+              <td style="font-weight:600; color:#fff;">EX90</td>
+              <td class="text-center">€67,200</td>
+              <td class="text-center">€62,700</td>
+              <td class="text-center">€107,180</td>
+              <td class="text-center">€263,160</td>
+              <td class="text-center">€22,770</td>
+              <td class="text-right" style="font-weight:600; color:#fff;">€523,010</td>
+            </tr>
+            <tr data-model="XC60">
+              <td style="font-weight:600; color:#fff;">XC60</td>
+              <td class="text-center">€117,600</td>
+              <td class="text-center">€103,740</td>
+              <td class="text-center">€165,430</td>
+              <td class="text-center">€325,080</td>
+              <td class="text-center">€24,750</td>
+              <td class="text-right" style="font-weight:600; color:#fff;">€736,600</td>
+            </tr>
+            <tr data-model="EC40">
+              <td style="font-weight:600; color:#fff;">EC40</td>
+              <td class="text-center">€123,200</td>
+              <td class="text-center">€116,280</td>
+              <td class="text-center">€223,680</td>
+              <td class="text-center">€526,320</td>
+              <td class="text-center">€27,390</td>
+              <td class="text-right" style="font-weight:600; color:#fff;">€1,016,870</td>
+            </tr>
+            <tr data-model="EX30">
+              <td style="font-weight:600; color:#fff;">EX30</td>
+              <td class="text-center">€467,600</td>
+              <td class="text-center">€387,600</td>
+              <td class="text-center">€736,280</td>
+              <td class="text-center">€1,682,160</td>
+              <td class="text-center">€108,240</td>
+              <td class="text-right" style="font-weight:600; color:#fff;">€3,381,880</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    function switchTab(num) {
+      document.querySelectorAll('.tab-view').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+      
+      const tab = document.getElementById('tab-' + num);
+      const btn = document.getElementById('btn-' + num);
+      if (tab) tab.classList.add('active');
+      if (btn) btn.classList.add('active');
+      window.dispatchEvent(new Event('resize'));
+    }
+
+    // Chart Defaults
+    Chart.defaults.color = '#94A3B8';
+    Chart.defaults.borderColor = '#334155';
+
+    // -------------------------------------------------------------
+    // Page 1 Charts
+    // -------------------------------------------------------------
+    const c1_rev_chart = new Chart(document.getElementById('c1_revenue'), {
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        datasets: [
+          { type: 'bar', label: 'Revenue ($M)', data: [42.1, 41.8, 45.3, 43.1, 42.6, 41.5, 40.2, 34.1, 30.8, 30.5, 30.1, 75.2], backgroundColor: '#38BDF8', borderRadius: 4, yAxisID: 'y' },
+          { type: 'line', label: 'EV Mix %', data: [80.1, 78.4, 76.8, 83.5, 78.2, 79.1, 80.4, 81.3, 78.9, 82.1, 80.3, 81.2], borderColor: '#06B6D4', borderWidth: 3, tension: 0.3, yAxisID: 'y1' }
+        ]
+      },
+      options: { responsive: true, maintainAspectRatio: false, scales: { y: { position: 'left' }, y1: { position: 'right', min: 70, max: 90, grid: { display: false } } } }
+    });
+
+    const c1_powertrain_chart = new Chart(document.getElementById('c1_powertrain'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Pure EV 79.8%', 'PHEV 17.3%', 'MHEV 2.9%'],
+        datasets: [{ data: [79.75, 17.29, 2.95], backgroundColor: ['#06B6D4', '#A855F7', '#10B981'], borderWidth: 0 }]
+      },
+      options: { responsive: true, maintainAspectRatio: false, cutout: '70%', plugins: { legend: { position: 'bottom' } } }
+    });
+
+    const c1_region_chart = new Chart(document.getElementById('c1_region'), {
+      type: 'bar',
+      data: {
+        labels: ['Western Europe', 'Nordics', 'Americas', 'Central Europe', 'Southern Europe'],
+        datasets: [{ label: 'Revenue ($M)', data: [162.91, 153.32, 76.32, 75.75, 74.53], backgroundColor: '#06B6D4', borderRadius: 6 }]
+      },
+      options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+    });
+
+    // -------------------------------------------------------------
+    // Page 2 Charts
+    // -------------------------------------------------------------
+    const c2_channel_chart = new Chart(document.getElementById('c2_channel'), {
+      type: 'bar',
+      data: {
+        labels: ['Care_Subscription_Hub', 'Direct_Brand_Studio', 'Franchised_Retailer'],
+        datasets: [
+          { label: 'Margin %', data: [26.40, 24.51, 21.73], backgroundColor: '#38BDF8', borderRadius: 4 },
+          { label: 'Discount %', data: [0.00, 2.51, 5.92], backgroundColor: '#1E40AF', borderRadius: 4 }
+        ]
+      },
+      options: { responsive: true, maintainAspectRatio: false }
+    });
+
+    const c2_model_chart = new Chart(document.getElementById('c2_model'), {
+      type: 'bar',
+      data: {
+        labels: ['XC60', 'XC90', 'EX90', 'V60', 'EC40', 'EX30'],
+        datasets: [{ label: 'Margin %', data: [25.30, 24.90, 24.29, 23.48, 22.45, 22.11], backgroundColor: '#06B6D4', borderRadius: 6 }]
+      },
+      options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+    });
+
+    // -------------------------------------------------------------
+    // Page 3 Charts
+    // -------------------------------------------------------------
+    const c3_curve_chart = new Chart(document.getElementById('c3_curve'), {
+      type: 'line',
+      data: {
+        labels: ['10%', '15%', '20%', '25%', '30%', '35%', '40%'],
+        datasets: [
+          { label: 'EX90', data: [63.2, 61.5, 58.4, 54.2, 49.8, 60.1, 62.4], borderColor: '#06B6D4', tension: 0.3 },
+          { label: 'EC40', data: [48.1, 46.2, 43.8, 40.5, 38.9, 39.2, 40.1], borderColor: '#A855F7', tension: 0.3 },
+          { label: 'EX30', data: [37.5, 35.8, 32.1, 29.4, 26.8, 28.1, 29.0], borderColor: '#10B981', tension: 0.3 }
+        ]
+      },
+      options: { responsive: true, maintainAspectRatio: false }
+    });
+
+    const c3_protocol_chart = new Chart(document.getElementById('c3_protocol'), {
+      type: 'doughnut',
+      data: {
+        labels: ['AC Wallbox 60.0%', 'DC Fast 25.2%', 'DC UltraFast 14.9%'],
+        datasets: [{ data: [59.97, 25.16, 14.87], backgroundColor: ['#06B6D4', '#10B981', '#A855F7'], borderWidth: 0 }]
+      },
+      options: { responsive: true, maintainAspectRatio: false, cutout: '70%', plugins: { legend: { position: 'bottom' } } }
+    });
+
+    const c3_temp_chart = new Chart(document.getElementById('c3_temp'), {
+      type: 'bar',
+      data: {
+        labels: ['-30°C', '-20°C', '-10°C', '0°C', '10°C', '20°C', '30°C', '40°C'],
+        datasets: [{ label: 'Energy (MWh)', data: [0, 8, 58, 150, 280, 212, 89, 9], backgroundColor: '#06B6D4', borderRadius: 6 }]
+      },
+      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+    });
+
+    // -------------------------------------------------------------
+    // Page 4 Charts
+    // -------------------------------------------------------------
+    const c4_pareto_chart = new Chart(document.getElementById('c4_pareto'), {
+      type: 'bar',
+      data: {
+        labels: ['HV Battery Pack', 'Electric Drive Inverter', 'ADAS Vision Sensor', 'Air Suspension', 'Infotainment OTA'],
+        datasets: [{ label: 'Defect Cost (€M)', data: [2.9, 1.3, 0.9, 0.7, 0.2], backgroundColor: '#06B6D4', borderRadius: 6 }]
+      },
+      options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+    });
+
+    const c4_trend_chart = new Chart(document.getElementById('c4_trend'), {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        datasets: [
+          { label: 'HV Battery Pack', data: [0.35, 0.28, 0.29, 0.22, 0.24, 0.25, 0.21, 0.15, 0.20, 0.18, 0.05, 0.02], borderColor: '#F43F5E', tension: 0.3 },
+          { label: 'Electric Drive Inverter', data: [0.14, 0.11, 0.12, 0.09, 0.14, 0.11, 0.10, 0.12, 0.10, 0.10, 0.04, 0.01], borderColor: '#F59E0B', tension: 0.3 },
+          { label: 'Air Suspension', data: [0.08, 0.07, 0.06, 0.05, 0.07, 0.06, 0.05, 0.06, 0.05, 0.05, 0.02, 0.01], borderColor: '#38BDF8', tension: 0.3 },
+          { label: 'ADAS Vision Sensor', data: [0.07, 0.08, 0.06, 0.05, 0.06, 0.06, 0.05, 0.05, 0.04, 0.04, 0.01, 0.01], borderColor: '#A855F7', tension: 0.3 }
+        ]
+      },
+      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'top' } } }
+    });
+
+    // =============================================================
+    // DYNAMIC FILTER LOGIC (100% Interactive)
+    // =============================================================
+    
+    // Page 1 Filter
+    function applyPage1Filter() {
+      const region = document.getElementById('p1-filter').value;
+      const kpiRev = document.getElementById('p1_val_rev');
+      const kpiVol = document.getElementById('p1_val_vol');
+      const kpiMargin = document.getElementById('p1_val_margin');
+      const kpiEv = document.getElementById('p1_val_ev');
+
+      if (region === 'Americas') {
+        kpiRev.innerText = '$76.32M';
+        kpiVol.innerText = '1,412';
+        kpiMargin.innerText = '22.80%';
+        kpiEv.innerText = '74.20%';
+        c1_region_chart.data.datasets[0].backgroundColor = ['#1E293B', '#1E293B', '#06B6D4', '#1E293B', '#1E293B'];
+      } else if (region === 'Nordics') {
+        kpiRev.innerText = '$153.32M';
+        kpiVol.innerText = '2,840';
+        kpiMargin.innerText = '24.10%';
+        kpiEv.innerText = '88.50%';
+        c1_region_chart.data.datasets[0].backgroundColor = ['#1E293B', '#06B6D4', '#1E293B', '#1E293B', '#1E293B'];
+      } else if (region === 'Western_Europe') {
+        kpiRev.innerText = '$162.91M';
+        kpiVol.innerText = '3,015';
+        kpiMargin.innerText = '23.50%';
+        kpiEv.innerText = '81.00%';
+        c1_region_chart.data.datasets[0].backgroundColor = ['#06B6D4', '#1E293B', '#1E293B', '#1E293B', '#1E293B'];
+      } else if (region === 'Central_Europe') {
+        kpiRev.innerText = '$75.75M';
+        kpiVol.innerText = '1,402';
+        kpiMargin.innerText = '22.40%';
+        kpiEv.innerText = '76.80%';
+        c1_region_chart.data.datasets[0].backgroundColor = ['#1E293B', '#1E293B', '#1E293B', '#06B6D4', '#1E293B'];
+      } else if (region === 'Southern_Europe') {
+        kpiRev.innerText = '$74.53M';
+        kpiVol.innerText = '1,382';
+        kpiMargin.innerText = '22.10%';
+        kpiEv.innerText = '75.10%';
+        c1_region_chart.data.datasets[0].backgroundColor = ['#1E293B', '#1E293B', '#1E293B', '#1E293B', '#06B6D4'];
+      } else {
+        kpiRev.innerText = '$542.83M';
+        kpiVol.innerText = '10,051';
+        kpiMargin.innerText = '23.28%';
+        kpiEv.innerText = '79.75%';
+        c1_region_chart.data.datasets[0].backgroundColor = '#06B6D4';
+      }
+      c1_region_chart.update();
+    }
+
+    // Page 2 Filter
+    function applyPage2Filter() {
+      const channel = document.getElementById('p2-filter').value;
+      const kpiDisc = document.getElementById('p2_val_disc');
+      const kpiProfit = document.getElementById('p2_val_profit');
+      const kpiLead = document.getElementById('p2_val_lead');
+      const rows = document.querySelectorAll('#p2-tbody tr');
+
+      if (channel === 'Direct_Brand_Studio') {
+        kpiDisc.innerText = '2.51%';
+        kpiProfit.innerText = '$37.36M';
+        kpiLead.innerText = '18.40';
+      } else if (channel === 'Care_Subscription_Hub') {
+        kpiDisc.innerText = '0.00%';
+        kpiProfit.innerText = '$43.63M';
+        kpiLead.innerText = '12.10';
+      } else if (channel === 'Franchised_Retailer') {
+        kpiDisc.innerText = '5.92%';
+        kpiProfit.innerText = '$45.40M';
+        kpiLead.innerText = '29.80';
+      } else {
+        kpiDisc.innerText = '4.20%';
+        kpiProfit.innerText = '$126.39M';
+        kpiLead.innerText = '25.92';
+      }
+
+      rows.forEach(r => {
+        if (channel === 'All' || r.getAttribute('data-channel') === channel) {
+          r.style.display = '';
+        } else {
+          r.style.display = 'none';
+        }
+      });
+    }
+
+    // Page 3 Filter
+    function applyPage3Filter() {
+      const model = document.getElementById('p3-filter').value;
+      const kpiEnergy = document.getElementById('p3_val_energy');
+      const kpiSpeed = document.getElementById('p3_val_speed');
+      const kpiTemp = document.getElementById('p3_val_temp');
+
+      if (model === 'EX90') {
+        kpiEnergy.innerText = '420 MWh';
+        kpiSpeed.innerText = '58.2 kW';
+        kpiTemp.innerText = '8.4°C';
+        c3_curve_chart.data.datasets[0].hidden = false;
+        c3_curve_chart.data.datasets[1].hidden = true;
+        c3_curve_chart.data.datasets[2].hidden = true;
+      } else if (model === 'EC40') {
+        kpiEnergy.innerText = '510 MWh';
+        kpiSpeed.innerText = '41.4 kW';
+        kpiTemp.innerText = '9.8°C';
+        c3_curve_chart.data.datasets[0].hidden = true;
+        c3_curve_chart.data.datasets[1].hidden = false;
+        c3_curve_chart.data.datasets[2].hidden = true;
+      } else if (model === 'EX30') {
+        kpiEnergy.innerText = '570 MWh';
+        kpiSpeed.innerText = '31.2 kW';
+        kpiTemp.innerText = '10.1°C';
+        c3_curve_chart.data.datasets[0].hidden = true;
+        c3_curve_chart.data.datasets[1].hidden = true;
+        c3_curve_chart.data.datasets[2].hidden = false;
+      } else {
+        kpiEnergy.innerText = '1.5K';
+        kpiSpeed.innerText = '37.5 kW';
+        kpiTemp.innerText = '9.5°C';
+        c3_curve_chart.data.datasets[0].hidden = false;
+        c3_curve_chart.data.datasets[1].hidden = false;
+        c3_curve_chart.data.datasets[2].hidden = false;
+      }
+      c3_curve_chart.update();
+    }
+
+    // Page 4 Filter
+    function applyPage4Filter() {
+      const model = document.getElementById('p4-filter').value;
+      const kpiExpense = document.getElementById('p4_val_expense');
+      const kpiCpu = document.getElementById('p4_val_cpu');
+      const kpiSafety = document.getElementById('p4_val_safety');
+      const rows = document.querySelectorAll('#p4-tbody tr');
+
+      if (model === 'EX30') {
+        kpiExpense.innerText = '€3.38M';
+        kpiCpu.innerText = '€624.10';
+        kpiSafety.innerText = '61.20%';
+        c4_pareto_chart.data.datasets[0].data = [1.68, 0.74, 0.47, 0.39, 0.10];
+      } else if (model === 'EC40') {
+        kpiExpense.innerText = '€1.02M';
+        kpiCpu.innerText = '€590.20';
+        kpiSafety.innerText = '54.80%';
+        c4_pareto_chart.data.datasets[0].data = [0.53, 0.22, 0.12, 0.12, 0.03];
+      } else if (model === 'EX90') {
+        kpiExpense.innerText = '€0.52M';
+        kpiCpu.innerText = '€540.00';
+        kpiSafety.innerText = '58.10%';
+        c4_pareto_chart.data.datasets[0].data = [0.26, 0.11, 0.07, 0.06, 0.02];
+      } else if (model === 'XC60') {
+        kpiExpense.innerText = '€0.74M';
+        kpiCpu.innerText = '€560.10';
+        kpiSafety.innerText = '52.40%';
+        c4_pareto_chart.data.datasets[0].data = [0.33, 0.17, 0.12, 0.10, 0.02];
+      } else {
+        kpiExpense.innerText = '€6.0M';
+        kpiCpu.innerText = '€601.13';
+        kpiSafety.innerText = '57.80%';
+        c4_pareto_chart.data.datasets[0].data = [2.9, 1.3, 0.9, 0.7, 0.2];
+      }
+      c4_pareto_chart.update();
+
+      rows.forEach(r => {
+        if (model === 'All' || r.getAttribute('data-model') === model) {
+          r.style.display = '';
+        } else {
+          r.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>
