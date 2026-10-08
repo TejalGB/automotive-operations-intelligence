@@ -87,25 +87,10 @@ flowchart LR
 
 The interactive Power BI report provides an executive-level cockpit across 4 dedicated views:
 
-### Page 1: Executive Fleet & North Star Overview
-High-level KPI tracking of Total Revenue (€M), Delivery Volume, Gross Margin %, EV Sales Mix %, and regional market contribution.
-
-![Executive Fleet Overview](bi/Overview.png)
-
-### Page 2: Commercial Performance & D2C Analytics
-Discount leakage analysis, channel profitability (D2C Studio vs. Subscription vs. Franchised Retailer), and model-level margins.
-
-![Commercial Performance & D2C Analytics](bi/Performance.png)
-
-### Page 3: Connected EV Telematics & Battery Health Lab
-Fast-charging speed curves across State of Charge (SoC %), charger protocol split, and ambient temperature throughput distribution (-30°C to +40°C).
-
-![Connected EV Telematics](bi/Health.png)
-
-### Page 4: Quality, Warranty & Field Reliability
-Early-life defect detection (CPTV at 6 Months in Service), Cost Per Unit (CPU €), Pareto defect prioritization, and component risk matrix.
-
-![Quality and Warranty Analytics](bi/Quality.png)
+* **Page 1: Executive Fleet & North Star Overview** – High-level KPI tracking of Total Revenue (€M), Delivery Volume, Gross Margin %, EV Sales Mix %, and regional market contribution.
+* **Page 2: Commercial Performance & D2C Analytics** – Discount leakage analysis, channel profitability (D2C Studio vs. Subscription vs. Franchised Retailer), and model-level margins.
+* **Page 3: Connected EV Telematics & Battery Health Lab** – Fast-charging speed curves across State of Charge (SoC %), charger protocol split, and ambient temperature throughput distribution (-30°C to +40°C).
+* **Page 4: Quality, Warranty & Field Reliability** – Early-life defect detection (CPTV at 6 Months in Service), Cost Per Unit (CPU €), Pareto defect prioritization, and component risk matrix.
 
 ---
 
