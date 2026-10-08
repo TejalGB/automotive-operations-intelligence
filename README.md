@@ -1,11 +1,5 @@
 # 🚗 AutoOps 360: Global Connected Automotive & Commercial Intelligence Platform
 
-[![Daily Automation & CI](https://github.com/TejalGB/automotive-operations-intelligence/actions/workflows/daily_pipeline.yml/badge.svg)](https://github.com/TejalGB/automotive-operations-intelligence/actions)
-[![Database: MySQL 8.0](https://img.shields.io/badge/Database-MySQL%208.0-blue.svg)](https://www.mysql.com/)
-[![BI: Power BI](https://img.shields.io/badge/BI-Power%20BI%20Desktop-yellow.svg)](https://powerbi.microsoft.com/)
-[![Language: Python 3.12](https://img.shields.io/badge/Python-3.12-brightgreen.svg)](https://www.python.org/)
-[![Governance: ServiceNow ITSM](https://img.shields.io/badge/ITSM-ServiceNow%20Governed-red.svg)](https://www.servicenow.com/)
-
 An enterprise-grade automotive data analytics and operations platform connecting **global commercial sales**, **real-world connected EV battery telematics**, and **aftersales warranty engineering** using **Python, MySQL 8.0, and Microsoft Power BI**, with automated **GitHub Actions CI/CD** and **ServiceNow ITSM governance**.
 
 ---

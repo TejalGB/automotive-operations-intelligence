@@ -22,35 +22,36 @@ jobs:
           MYSQL_DATABASE: auto_ops_dw
         ports:
           - 3306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=5
 
     steps:
-      - name: 📥 Check out repository code
+      - name: Check out repository code
         uses: actions/checkout@v4
 
-      - name: 🐍 Set up Python 3.12
+      - name: Set up Python 3.12
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
 
-      - name: 📦 Install Python Dependencies
+      - name: Install Dependencies
         run: |
+          sudo apt-get update && sudo apt-get install -y default-mysql-client
           python -m pip install --upgrade pip
-          pip install pandas numpy sqlalchemy pymysql
+          pip install pandas numpy pymysql
 
-      - name: 🗄️ Initialize MySQL Schema (DDL)
+      - name: Initialize MySQL Schema
         run: |
           mysql -h 127.0.0.1 -u root -ppassword auto_ops_dw < sql/01_schema_ddl.sql
 
-      - name: ⏰ Execute Daily Pipeline Simulator
+      - name: Execute Daily Pipeline Simulator
         run: |
           python src/run_daily_pipeline.py --days 1
 
-      - name: 🧪 Execute Automated Data Quality Assertion Suite
+      - name: Execute Automated Data Quality Assertion Suite
         run: |
           python src/data_quality_checks.py
 
-      - name: 📊 Ingest Data Marts into MySQL Container
+      - name: Ingest Data Marts into MySQL
         env:
           MYSQL_USER: root
           MYSQL_PASSWORD: password
@@ -60,7 +61,7 @@ jobs:
         run: |
           python src/db_loader.py
 
-      - name: 📈 Verify Analytical Views Execution
+      - name: Verify Analytical Views
         run: |
           mysql -h 127.0.0.1 -u root -ppassword auto_ops_dw < sql/02_analytical_views.sql
           mysql -h 127.0.0.1 -u root -ppassword auto_ops_dw -e "SELECT * FROM vw_commercial_ev_transition LIMIT 5;"
