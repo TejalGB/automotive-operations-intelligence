@@ -12,21 +12,21 @@ An enterprise-grade automotive data analytics and operations platform connecting
 
 ## 📌 Executive Summary & Business Objectives
 
-As global automotive manufacturers accelerate the transition toward **100% Electrification (EV)** and omnichannel **Direct-to-Consumer (D2C)** sales, leadership requires unified, cross-functional intelligence. 
+As global automotive manufacturers accelerate the transition toward **100% Electrification (EV)** and omnichannel **Direct-to-Consumer (D2C)** sales, leadership requires unified, cross-functional intelligence.
 
-This platform delivers an end-to-end analytics framework to:
-1. **Track Commercial Sales & EV Mix:** Monitor revenue expansion, powertrain transition pace (BEV/PHEV/MHEV), and gross profit across global markets.
-2. **Control Retail Pricing & Discount Leakage:** Evaluate dealer concessions, delivery lead times, and Direct-to-Consumer (D2C) studio performance versus traditional franchised retail.
-3. **Analyze Connected EV Telematics & Battery Kinetics:** Assess real-world DC Fast Charging throughput curves, charger protocol adoption, and ambient temperature/winter range degradation.
-4. **Early Defect & Warranty Cost Mitigation:** Track Claims per Thousand Vehicles (CPTV) at 6 Months in Service (MIS) and early-warning Pareto defect signatures to prevent widespread recall liabilities.
-5. **Enforce Enterprise Data Quality & ITIL Governance:** Ensure 100% data contract integrity through automated CI/CD assertion suites and ServiceNow Incident Root Cause Analyses (RCAs).
+This project delivers an end-to-end analytics framework to:
+1. **Track Commercial Sales & EV Adoption:** Monitor top-line revenue expansion, powertrain transition mix (BEV/PHEV/MHEV), and gross margin performance across global markets.
+2. **Evaluate Channel Economics & Discount Leakage:** Analyze dealer concessions, delivery lead times, and Direct-to-Consumer (D2C) studio margins versus traditional franchised retailers.
+3. **Analyze Connected EV Telematics & Battery Kinetics:** Assess real-world DC Fast Charging throughput curves, charging protocol adoption, and ambient temperature/cold weather range degradation.
+4. **Early Defect Detection & Warranty Cost Control:** Track Claims per Thousand Vehicles (CPTV) at 6 Months in Service (MIS) and Pareto defect signatures to mitigate recall risks.
+5. **Ensure Data Quality & Change Governance:** Enforce 100% data contract integrity through automated CI/CD assertion suites and ServiceNow Incident Root Cause Analyses (RCAs).
 
 ---
 
 ## 🛠️ Tech Stack & Architecture
 
-- **Data Engineering & Automation:** Python 3.12, Pandas, NumPy, PyMySQL
-- **Database & Data Modeling:** MySQL 8.0 (Kimball Dimensional Star Schema, Analytical CTE Views)
+- **Data Engineering & Automation:** Python 3.12 (Pandas, NumPy, PyMySQL)
+- **Database & Data Modeling:** MySQL 8.0 (Dimensional Star Schema, Analytical CTE Views)
 - **Business Intelligence & Reporting:** Microsoft Power BI Desktop, DAX (Data Analysis Expressions)
 - **CI/CD & Orchestration:** GitHub Actions (Automated daily data generation, 12 data quality assertions, schema testing)
 - **Enterprise IT Governance:** ServiceNow ITSM Incident Management & Change Control (RCAs & CHGs)
@@ -34,21 +34,21 @@ This platform delivers an end-to-end analytics framework to:
 ```mermaid
 flowchart LR
     subgraph "1. Ingestion & Simulation"
-        A["🐍 Python Pipeline Engine<br/>Historical & Daily Simulator"]
+        A["🐍 Python Data Engine<br/>Historical & Daily Simulator"]
     end
 
     subgraph "2. Storage & Modeling (MySQL 8.0)"
-        B["🗄️ Master DW (Kimball Star Schema)<br/>Conformed Dimensions & Multi-Domain Facts"]
-        C["📊 High-Performance Views<br/>• vw_commercial_ev_transition<br/>• vw_ev_telematics_performance<br/>• vw_warranty_quality"]
+        B["🗄️ Master Data Warehouse<br/>Star Schema Dimensions & Facts"]
+        C["📊 Analytical Views<br/>• Commercial Sales<br/>• EV Telematics<br/>• Warranty Quality"]
     end
 
     subgraph "3. DataOps & Automation"
-        D["🤖 GitHub Actions CI/CD<br/>• Daily Cron Runner (02:00 UTC)<br/>• 12 Automated Quality Assertions<br/>• MySQL Container Integration"]
+        D["🤖 GitHub Actions CI/CD<br/>• Daily Automation Runner<br/>• 12 Automated Quality Assertions<br/>• Database Container Integration"]
     end
 
     subgraph "4. Consumption & Governance"
-        E["📊 Power BI Executive Suite<br/>• 4 Interactive Cockpit Pages<br/>• 16+ Production DAX Measures"]
-        F["🚨 ServiceNow ITSM<br/>• Incident RCAs (INC0948102)<br/>• Change Requests (CHG0092104)"]
+        E["📊 Power BI Executive Suite<br/>4-Page Interactive Dashboard"]
+        F["🚨 ServiceNow ITSM<br/>Incident RCAs & Change Control"]
     end
 
     A --> B --> C --> E
@@ -81,7 +81,7 @@ flowchart LR
              ▼                                ▼                                ▼
 ┌─────────────────────────┐      ┌─────────────────────────┐      ┌─────────────────────────┐
 │      dim_vehicles       │      │      dim_geography      │      │       dim_dealers       │
-│ • Model (EX30, EX90...) │      │ • Sales Region          │      │ • Retailer Name         │
+│ • Model Family (EX30..) │      │ • Sales Region          │      │ • Retailer Name         │
 │ • Battery Specs (kWh)   │      │ • Climate Zone          │      │ • Channel (D2C/Dealer)  │
 │ • Software Release      │      │ • Currency Exchange     │      │ • EV Certified Flag     │
 └─────────────────────────┘      └─────────────────────────┘      └─────────────────────────┘
@@ -91,102 +91,34 @@ flowchart LR
 
 ## 📊 Executive Power BI Dashboard Suite
 
-The Power BI reporting cockpit is structured into **4 Executive Views**:
+The interactive Power BI report provides an executive-level cockpit across 4 dedicated views:
 
-### Page 1: Executive Fleet & North Star Overview
-* **North Star KPIs:** Total Fleet Revenue (€M), Total Delivery Volume, Weighted Gross Margin %, and EV Sales Mix %.
-* **Monthly Revenue & EV Adoption Mix:** Dual-axis visualization showing revenue momentum alongside pure electric adoption trends.
-* **Powertrain Distribution:** Fleet breakdown across Pure EV (BEV), Plug-in Hybrid (PHEV), and Mild Hybrid (MHEV).
-* **Regional Performance:** Revenue volume across Western Europe, Nordics, Americas, Central Europe, and Southern Europe.
-
-### Page 2: Commercial Performance & D2C Analytics
-* **Commercial KPIs:** Discount Leakage %, Total Gross Profit (€M), and Average Delivery Lead Time (Days).
-* **Channel Economics:** Margin comparison between Direct Brand Studios, Care Subscription Hubs, and Franchised Retailers.
-* **Model Family Margins:** Profitability ranking across vehicle lines (XC60, XC90, EX90, V60, EC40, EX30).
-* **Dealer & Retailer Matrix:** Comprehensive breakdown of regional sales volumes, realized revenues, and discount discipline.
-
-### Page 3: Connected EV Telematics & Battery Health Lab
-* **Fleet Telematics KPIs:** Total Energy Delivered (MWh), Average DC Fast Charging Speed (kW), and Mean Ambient Operating Temperature.
-* **Fast Charging Speed Curve:** Charging speed (kW) profiles plotted across Battery State of Charge (10%–80% SoC) by model family.
-* **Charger Protocol Share:** Energy throughput split across AC Wallbox (11kW), DC Fast (150kW), and DC Ultra-Fast (250kW).
-* **Thermal Impact Analysis:** Energy throughput distribution binned across ambient temperatures (-30°C to +40°C) to quantify subarctic cold degradation.
-
-### Page 4: Quality, Warranty & Field Reliability
-* **Quality KPIs:** Total Warranty Incurred Expense, Cost Per Unit (CPU €), and Safety Critical Defect Rate %.
-* **Pareto Defect Signatures:** Defect category prioritization (Battery Cell Degradation, Software / Infotainment, Inverter / Drive Unit, Thermal Management, Suspension).
-* **Claim Maturity Curve:** Claims per Thousand Vehicles (CPTV) tracked over vehicle Months in Service (MIS 1 to 12).
-* **Component Risk Matrix:** Model family vs. component defect matrix highlighting early-life field reliability exposure.
+* **Page 1: Executive Fleet & North Star Overview** – High-level KPI tracking of Total Revenue (€M), Delivery Volume, Gross Margin %, EV Sales Mix %, and regional market contribution.
+* **Page 2: Commercial Performance & D2C Analytics** – Discount leakage analysis, channel profitability (D2C Studio vs. Subscription vs. Franchised Retailer), and model-level margins.
+* **Page 3: Connected EV Telematics & Battery Health Lab** – Fast-charging speed curves across State of Charge (SoC %), charger protocol split, and ambient temperature throughput distribution (-30°C to +40°C).
+* **Page 4: Quality, Warranty & Field Reliability** – Early-life defect detection (CPTV at 6 Months in Service), Cost Per Unit (CPU €), Pareto defect prioritization, and component risk matrix.
 
 ---
 
-## 📈 Key Performance Indicators (KPIs & DAX Highlights)
+## 📈 Key Performance Indicators (KPIs)
 
-| KPI Metric | Business Definition | Calculation Logic |
+| KPI Metric | Business Definition | Formula / Calculation |
 | :--- | :--- | :--- |
-| **EV Sales Mix %** | Proportion of deliveries that are pure electric (BEV) | `DIVIDE(CALCULATE(COUNT(fact_sales[sale_id]), dim_vehicle[powertrain] = "BEV"), COUNT(fact_sales[sale_id]))` |
-| **Weighted Gross Margin %** | Net margin realized across multi-currency transactions | `DIVIDE([Total Gross Profit EUR], [Total Revenue EUR])` |
-| **Discount Leakage %** | Concessions given off list price (excluding subscriptions) | `DIVIDE(SUM(fact_sales[discount_amount_eur]), SUM(fact_sales[msrp_eur]))` |
-| **Early Life CPTV (6 MIS)** | Claims Per Thousand Vehicles within first 6 months | `DIVIDE(CALCULATE(COUNT(fct_claims[claim_id]), fct_claims[months_in_service] <= 6), [Total Units Sold]) * 1000` |
-| **Cost Per Unit (CPU)** | Average warranty liability cost per vehicle delivered | `DIVIDE([Total Warranty Expense EUR], [Total Units Sold])` |
+| **EV Sales Mix %** | Proportion of total deliveries that are pure electric (BEV) | `COUNT(Pure_EV Deliveries) / COUNT(Total Deliveries)` |
+| **Weighted Gross Margin %** | Realized profitability margin across global transactions | `SUM(Gross Profit EUR) / SUM(Net Revenue EUR)` |
+| **Discount Leakage %** | MSRP value conceded to dealer discounting | `SUM(Discount Amount EUR) / SUM(MSRP EUR)` |
+| **Early Life CPTV** | Claims Per Thousand Vehicles within first 6 Months in Service | `(Claims <= 6 MIS / Total Deliveries) * 1000` |
+| **Cost Per Unit (CPU)** | Average warranty liability cost per vehicle delivered | `SUM(Warranty Incurred Expense) / Total Deliveries` |
 
 ---
 
 ## 🚨 ServiceNow ITSM Incident & Change Governance
 
-This project implements enterprise ITIL governance practices with documented production incident resolutions and change requests:
+This project demonstrates enterprise operational governance through documented production incident resolutions and change requests:
 
-* **[INC0948102 - Currency Normalization Hotfix](itsm_governance/INC0948102_rca_currency_fx.md):**  
-  * *Issue:* UK (GBP) and US (USD) vehicle sales reflected negative margins in reporting due to missing FX normalization.
-  * *Resolution:* Implemented daily exchange rate conversion table (`dim_exchange_rates`) and automated financial sanity checks in CI.
-* **[INC0841203 - Subscription Model Discount Anomaly](itsm_governance/INC0841203_rca_subscription.md):**  
-  * *Issue:* Monthly subscription vehicle additions distorted retail discount leakage metrics.
-  * *Resolution:* Adjusted DAX filter context to cleanly separate recurring subscription fleet deliveries from retail dealer sales.
-* **[CHG0092104 - EV Battery Subsidy Tier Deployment](itsm_governance/CHG0092104_change_request.md):**  
-  * *Change:* Deployed government EV subsidy tax incentive attributes into the geography dimension with verified rollback scripts.
-
----
-
-## 📂 Repository Directory Structure
-
-```
-📁 automotive-operations-intelligence/
-│
-├── 📂 sql/                               # ⭐ MySQL 8.0 DDL & Analytical Views
-│   ├── 01_schema_ddl.sql                 # Star Schema DDL, Constraints, Indexes
-│   ├── 02_analytical_views.sql           # CTEs & Analytical Views for BI
-│   └── 03_business_queries.sql           # 10 Executive Business SQL Queries
-│
-├── 📂 src/                               # ⭐ Python DataOps Engine
-│   ├── data_generator.py                 # Historical baseline generator (5k VINs, 10k Telematics)
-│   ├── run_daily_pipeline.py             # Incremental day simulator & orchestrator
-│   ├── data_quality_checks.py            # Automated test suite (12 quality assertions)
-│   └── db_loader.py                      # MySQL database loader
-│
-├── 📂 itsm_governance/                   # ⭐ ServiceNow ITSM Tickets & Operations
-│   ├── INC0948102_rca_currency_fx.md     # Incident RCA: UK/US Currency Normalization
-│   ├── INC0841203_rca_subscription.md    # Incident RCA: Subscription Discount Isolation
-│   ├── CHG0092104_change_request.md      # Change Request: EV Subsidy Tier Deployment
-│   └── data_operations_sop.md            # Standard Operating Procedure for Data Pipeline Triage
-│
-├── 📂 bi/                                # ⭐ Power BI Suite & DAX
-│   ├── dax_measures_dictionary.md        # 16+ Production DAX formulas & definitions
-│   ├── powerbi_setup_guide.md            # Visual layout and design specification
-│   └── executive_dashboard.html          # Standalone interactive web dashboard preview
-│
-├── 📂 data/marts/                        # ⭐ Star Schema Relational CSV Marts
-│   ├── dim_dates.csv
-│   ├── dim_vehicles.csv
-│   ├── dim_dealers.csv
-│   ├── dim_geography.csv
-│   ├── dim_exchange_rates.csv
-│   ├── fct_vehicle_sales.csv
-│   ├── fct_charging_telematics.csv
-│   └── fct_warranty_claims.csv
-│
-└── 📂 .github/
-    ├── ISSUE_TEMPLATE/servicenow_incident.md # ServiceNow Incident template for GitHub Issues
-    └── workflows/daily_pipeline.yml          # GitHub Actions scheduled automation
-```
+* **[INC0948102 - Currency Normalization Hotfix](itsm_governance/INC0948102_rca_currency_fx.md):** Resolved margin calculation discrepancies across multi-currency transactions (GBP/USD) by implementing exchange rate tables and automated financial sanity tests.
+* **[INC0841203 - Subscription Model Discount Anomaly](itsm_governance/INC0841203_rca_subscription.md):** Isolated recurring subscription deliveries from retail dealer discounting to eliminate distortion in discount leakage KPIs.
+* **[CHG0092104 - EV Battery Subsidy Tier Deployment](itsm_governance/CHG0092104_change_request.md):** Standard change request introducing government incentive classification attributes with verified rollback procedures.
 
 ---
 
@@ -214,14 +146,13 @@ python src/data_quality_checks.py
 
 ### 4. Simulate Daily Pipeline Refresh
 ```bash
-# Appends new daily vehicle sales, telematics, and claims
+# Appends new daily vehicle sales, telematics, and warranty claims
 python src/run_daily_pipeline.py
 ```
 
 ### 5. Refresh Power BI Dashboard
-1. Open your Power BI report (`.pbix`) located in the `bi/` folder.
-2. Click the **Refresh** button on the **Home** ribbon.
-3. Power BI re-reads the updated data marts and recomputes all 4 dashboard pages.
+1. Open your Power BI report (`.pbix`) in Power BI Desktop.
+2. Click **Refresh** on the **Home** ribbon to load the latest pipeline records.
 
 ---
 
