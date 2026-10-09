@@ -1,15 +1,13 @@
-dealer_id,dealer_name,geo_id,city,channel_type,is_certified_ev_center,annual_sales_target
-DLR_SE_001,Gothenburg Central Studio,GEO_SE,Gothenburg,Direct_Brand_Studio,True,2109
-DLR_SE_002,Stockholm Nordic Bilia,GEO_SE,Stockholm,Franchised_Retailer,True,1028
-DLR_NO_003,Oslo Fjord Mobility Hub,GEO_NO,Oslo,Direct_Brand_Studio,True,851
-DLR_NO_004,Bergen EV Center,GEO_NO,Bergen,Franchised_Retailer,True,2318
-DLR_DE_005,Munich Premium Autohaus,GEO_DE,Munich,Franchised_Retailer,True,1363
-DLR_DE_006,Berlin Brand Experience,GEO_DE,Berlin,Direct_Brand_Studio,True,1301
-DLR_UK_007,London Mayfair Studio,GEO_UK,London,Direct_Brand_Studio,True,1257
-DLR_UK_008,Manchester Northern Retail,GEO_UK,Manchester,Franchised_Retailer,True,1085
-DLR_NL_009,Amsterdam Canal Mobility,GEO_NL,Amsterdam,Care_Subscription_Hub,True,2308
-DLR_NL_010,Rotterdam Port Auto,GEO_NL,Rotterdam,Franchised_Retailer,True,1009
-DLR_US_011,New York Manhattan Studio,GEO_US,New York,Direct_Brand_Studio,True,2185
-DLR_US_012,California Bay Area Hub,GEO_US,San Francisco,Direct_Brand_Studio,True,2316
-DLR_IT_013,Milan Design District Auto,GEO_IT,Milan,Franchised_Retailer,True,1916
-DLR_IT_014,Rome Metropolitan Retail,GEO_IT,Rome,Franchised_Retailer,True,978
+dealer_id,name,geo_id,channel
+DLR_SE_001,Stockholm Central Studio,GEO_SE,Direct_Brand_Studio
+DLR_SE_002,Gothenburg Nordic Bilia,GEO_SE,Franchised_Retailer
+DLR_NO_001,Oslo Fjord Mobility,GEO_NO,Direct_Brand_Studio
+DLR_NO_002,Bergen EV Center,GEO_NO,Franchised_Retailer
+DLR_DE_001,Berlin Brand Experience,GEO_DE,Direct_Brand_Studio
+DLR_DE_002,Munich Premium Autohaus,GEO_DE,Franchised_Retailer
+DLR_IT_001,Milan Design District Auto,GEO_IT,Franchised_Retailer
+DLR_IT_002,Rome Metropolitan Retail,GEO_IT,Franchised_Retailer
+DLR_NL_001,Amsterdam Canal Mobility,GEO_NL,Care_Subscription_Hub
+DLR_NL_002,Rotterdam Port Auto,GEO_NL,Franchised_Retailer
+DLR_UK_001,London Mayfair Studio,GEO_UK,Direct_Brand_Studio
+DLR_US_001,New York Manhattan Hub,GEO_US,Direct_Brand_Studio

@@ -1,8 +1,8 @@
-geo_id,country_code,country_name,sales_region,climate_zone,currency_code,ev_subsidy_tier,fx_to_eur
-GEO_SE,SE,Sweden,Nordics,Subarctic,SEK,Moderate,0.088
-GEO_NO,NO,Norway,Nordics,Subarctic,NOK,High,0.086
-GEO_DE,DE,Germany,Central_Europe,Temperate,EUR,Moderate,1.0
-GEO_UK,UK,United Kingdom,Western_Europe,Temperate,GBP,Moderate,1.185
-GEO_NL,NL,Netherlands,Western_Europe,Temperate,EUR,High,1.0
-GEO_US,US,United States,Americas,Continental,USD,Moderate,0.92
-GEO_IT,IT,Italy,Southern_Europe,Mediterranean,EUR,None,1.0
+geo_id,country,region,currency,fx_to_eur
+GEO_SE,Sweden,Nordics,SEK,0.088
+GEO_NO,Norway,Nordics,NOK,0.086
+GEO_DE,Germany,Central_Europe,EUR,1.0
+GEO_UK,United Kingdom,Western_Europe,GBP,1.185
+GEO_US,United States,Americas,USD,0.92
+GEO_IT,Italy,Southern_Europe,EUR,1.0
+GEO_NL,Netherlands,Western_Europe,EUR,1.0

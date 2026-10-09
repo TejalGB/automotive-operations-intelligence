@@ -35,9 +35,13 @@ jobs:
         run: |
           python src/run_daily_pipeline.py
 
-      - name: Execute Automated Data Quality Assertion Suite
+      - name: Execute Automated Data Quality Assertion Suite (17 Positive Assertions)
         run: |
           python src/data_quality_checks.py
+
+      - name: Execute Data Quality Anomaly Injection Suite (5 Negative Assertions)
+        run: |
+          python tests/test_data_quality_negative.py
 
       - name: Auto-Commit and Push Daily Data Updates
         if: github.ref == 'refs/heads/main'
