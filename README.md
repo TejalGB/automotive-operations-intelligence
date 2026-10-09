@@ -1,7 +1,6 @@
 # 🚗 AutoOps 360: Global Connected Automotive & Commercial Intelligence Platform
 
-> **Live Interactive Web Demo:** [https://tejalgb.github.io/automotive-operations-intelligence/](https://tejalgb.github.io/automotive-operations-intelligence/)  
-> **Power BI Artifacts & Schema:** Located in [`bi/`](bi/) and [`sql/`](sql/) directories.
+> **Live Interactive Web Demo:** [https://tejalgb.github.io/automotive-operations-intelligence/](https://tejalgb.github.io/automotive-operations-intelligence/)
 
 An enterprise-grade automotive data analytics and operations platform integrating **global commercial sales**, **real-world connected EV battery telematics**, and **aftersales warranty engineering** using **Python 3.12, MySQL 8.0, and Microsoft Power BI (DAX)**, backed by **GitHub Actions CI/CD automation** and **ITIL/ServiceNow ITSM governance**.
 
