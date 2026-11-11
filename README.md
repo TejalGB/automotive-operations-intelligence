@@ -147,7 +147,7 @@ Validates that quality controls actively intercept and fail on corrupted data pa
 
 ## 📊 Executive Power BI Dashboard Suite
 
-The Microsoft Power BI report (`bi/autoops360_executive_dashboard.pbix`) provides 4 dedicated analytical views:
+The Microsoft Power BI report (`bi/Automotive_Operations_Dashboard.pbix`) provides 4 dedicated analytical views:
 
 1. **Page 1: Executive Fleet & North Star Overview** – High-level KPI cockpit tracking Net Revenue (€M), Total Deliveries, Gross Margin %, Pure EV Mix %, and regional volume breakdown.
 2. **Page 2: Commercial Performance & D2C Analytics** – Channel profitability comparison (Direct Studio vs. Franchised vs. Subscription), discount leakage analysis, and model-level margin spreads.
