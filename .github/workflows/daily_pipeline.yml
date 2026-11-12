@@ -1,9 +1,9 @@
-name: AutoOps 360 Daily Pipeline & Data Quality CI
+name: AutoOps 360 Operational Pipeline & Data Quality CI
 
 on:
   schedule:
-    # Runs daily at 02:00 AM UTC (07:30 AM IST)
-    - cron: '0 2 * * *'
+    # Runs every 3 days at 02:00 AM UTC (07:30 AM IST)
+    - cron: '0 2 */3 * *'
   workflow_dispatch:
   push:
     branches: [ main ]
@@ -31,7 +31,8 @@ jobs:
           python -m pip install --upgrade pip
           pip install pandas numpy pymysql
 
-      - name: Execute Daily Pipeline Simulator
+      - name: Execute Operational Pipeline Simulator
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
         run: |
           python src/run_daily_pipeline.py
 
@@ -43,8 +44,8 @@ jobs:
         run: |
           python tests/test_data_quality_negative.py
 
-      - name: Auto-Commit and Push Daily Data Updates
-        if: github.ref == 'refs/heads/main'
+      - name: Auto-Commit and Push Scheduled Data Updates
+        if: (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/main'
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
@@ -52,6 +53,6 @@ jobs:
           if git diff --staged --quiet; then
             echo "No new data changes to commit."
           else
-            git commit -m "Auto-update daily operational data marts [skip ci]"
+            git commit -m "Auto-update operational data marts [skip ci]"
             git push
           fi
